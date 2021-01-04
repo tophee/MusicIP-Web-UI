@@ -1,0 +1,240 @@
+
+<HTML>
+<HEAD>
+<TITLE>MusicIP Headless Server</TITLE>
+<style type="text/css">
+<!--
+.style2 {font-family: Verdana, Arial, Helvetica, sans-serif}
+body {
+	background-color: #99CCFF;
+}
+.style3 {font-size: 10px}
+.style4 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; }
+-->
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></HEAD>
+<BODY>
+<h1 class="style2">MusicIP Headless Server</h1>
+
+<h3 class="style2">Current Cache</h3>
+
+<table width=%100>
+    <TR>
+    <TD width=5% class="style2">&nbsp;</TD>
+    <TD width=35% class="style2">
+<table>
+    <tr><td>Total songs</td><td align=right>11,156</td></tr>
+    <tr><td>Mixable songs</td><td align=right>11,085</td></tr>
+    <tr><td>Songs to validate</td><td align=right>21</td></tr>
+    <tr><td colspan=2>&nbsp;</td></tr>
+    <!-- NYI: Usage stats?  Log file? -->
+</table></TD><TD width=60% class="style2">
+
+<form action="/server/add">
+    <input type=submit value="Add Music">
+    <input type=text name=root> <i>enter root folder of music</i>
+</form>
+
+<form action="/server/search">
+    <input type=submit value="Search Songs">
+    <input type=text name=query> <i>enter text to match songs</i>
+</form>
+
+<form action="/server/refresh">
+    <input type=submit value="Refresh Songs">
+</form>
+
+<!-- Only show this if the cache is obsolete -->
+<!--
+<form action="/server/reload">
+    <input type=submit value="Reload Cache"> <i>Cache has been modified on disk</i>
+</form>
+-->
+<!-- NYI: Overwrite cache option as well? -->
+
+</TD></tR>
+</TABLE>
+
+<hr>
+
+<h3 class="style2">Validation</h3>
+
+<span class="style2">
+<!-- Processor load options on Windows -->
+<!-- NYI: Only for win32 -->
+<!--
+</span>
+<form action="/server/updateProcessorUse" class="style2">
+    Processor use 
+<select name="use" onChange="submit()"></select>
+ <i>(affects time to complete validation)</i>
+</form>
+<span class="style2">
+-->
+</span>
+<form action="/server/validate" class="style2">
+    <input type=submit name="action" value="Start Validation">
+    <input type=submit name="action" value="Stop Validation">
+</form>
+
+<hr>
+
+<h3 class="style2">Mix Settings</h3>
+<p class="style4">These settings are not read from but will be written to the mmm.ini file when submitted<BR>
+
+<form action="/server/updateMixSettings" class="style2">
+<table>
+  <tr><td>Artist style</td><td>
+    <select name=style><option value="0">0: Ignore
+<option selected value="1">1
+<option value="2">2
+<option value="3">3
+<option value="4">4
+<option value="5">5
+<option value="6">6
+<option value="7">7
+<option value="8">8
+<option value="9">9
+<option value="10">10: Strongly Prefer
+</select></td></tr>
+  <tr><td>Variety</td><td>
+    <select name=variety><option value="0">0: None
+<option value="1">1
+<option value="2">2
+<option value="3">3
+<option value="4">4
+<option value="5">5
+<option value="6">6
+<option value="7">7
+<option value="8">8
+<option selected value="9">9
+</select></td></tr>
+  <tr><td>Mix size</td><td>
+    <input name="size" value="20" type=text size=20> 
+    <select name="type"><option selected value="0">tracks <option value="1">minutes <option value="2">MB </select></td></tr>
+  <tr><td>No duplicates within</td><td>
+    <input name="dupsize" value="3" type=text size=20> 
+    <select name="duptype"><option selected value="0">tracks <option value="1">minutes <option value="2">MB </select></td></tr>
+  <tr><td colspan="2">
+    <input name="seed" checked type=checkbox> Always include seed songs in mix</td></tr>
+  <tr><td colspan="2"><input type=submit value="Update Settings"></td></tr>
+</table>
+</form>
+
+<hr>
+
+<h3 class="style2">Server Settings</h3>
+
+<form action="/server/updateServerSettings" class="style2">
+<table>
+
+<tr><td colspan=4><input name=proxy  type=checkbox>Enable proxy</td></tr>
+
+<tr><td>Host</td><td><input name=host value="" size=40 type=text></td><td>Port</td><td><input name=port value="0" type=text><br></td></tr>
+
+<tr><td colspan=4><input name=auth  type=checkbox>Enable proxy authentication<br></td></tr>
+<tr><td>Username</td><td><input name=user value="" size=40 type=text></td><td>Password</td><td><input name=password value="" type=password></td></tr>
+</table>
+<input type=submit value="Update Settings">
+</form>
+
+<form action="/server/test" class="style2">
+<input type=submit value="Test Connection">
+</form>
+<hr>
+<h3 class="style2">Test Mix</h3>
+<form action="/api/mix?song=&size=12&sizeType=tracks&content=text" class="style2">
+<input type=submit value="Test Mix Creation"> 
+Test MusicIP is working correctly by creating a Generic Mix
+</form>
+<hr>
+<h3 class="style2">Show Information</h3>
+<table>
+  <td class="style2"><form action="/api/duplicates">
+    <input name="submit" type=submit value="Show Duplicates">
+  </form></td>
+  <td class="style2"><form action="/api/filters">
+    <input name="submit" type=submit value="Show Filters">
+  </form></td>
+  <td class="style2"><form action="/api/playlists">
+    <input name="submit" type=submit value="Show Playlists">
+  </form></td>
+<td class="style2"><form action="/api/recipes">
+    <input name="submit" type=submit value="Show Recipes">
+  </form></td>
+</table>
+
+<table width="221">
+<TR>
+<TD class="style2">
+<form action="/api/albums">
+  <div align="center">
+    <input type=submit value="Show Albums">
+  </div>
+</form></TD>
+<TD class="style2">
+<form action="/api/artists">
+  <div align="center">
+    <input type=submit value="Show Artists">
+  </div>
+</form></TD>
+</TR>
+<TR>
+<TD class="style2">
+<form action="/api/genres">
+  <div align="center">
+    <input type=submit value="Show Genres">
+  </div>
+</form></TD>
+<TD class="style2">
+<form action="/api/songs">
+  <div align="center">
+    <input type=submit value="Show Songs">
+  </div>
+</form></TD>
+</TR>
+</table>
+<hr>
+<h3 class="style2">Show Information about Specific Songs</h3>
+<form action="/api/getRating" class="style4">
+    <input type=submit value="Show Rating of Song">
+    <input name=song type=text size="50"> 
+    <i>Use Show Songs, Then Cut and Paste into Text Field</i>
+</form>
+<form action="/api/getPlayCount" class="style4">
+    <input type=submit value="Show Play Count of Song">
+    <input name=song type=text size="50"> 
+    <i>Use Show Songs, Then Cut and Paste into Text Field</i>
+</form>
+<form action="/api/getLastPlayed" class="style4">
+    <input type=submit value="Show when Song was Last Played">
+    <input name=song type=text size="50"> 
+    <i>Use Show Songs, Then Cut and Paste into Text Field</i>
+</form>
+<hr>
+<h3 class="style2">Links</h3>
+<table class="style4">
+  <tr>
+    <td><span class="style2"><a href="http://www.amplifindmusicservices.com/">AmpliFIND Music Services</a></span></td>
+    <td class="style4">Website for MusicIP</td>
+  </tr>
+  <tr>
+    <td><span class="style2"><a href="http://forums.slimdevices.com/">Squeezebox Forums</a></span></td>
+    <td>Support and Information on Squeezebox Products</td>
+  </tr>
+  <tr>
+    <td><span class="style2"><a href="https://github.com/tophee/MusicIP-Web-UI/">Github</a></span></td>
+    <td>For the latest version of this page (which is based on an earlier version by Spicefly, see below)</td>
+  </tr>
+  <tr>
+    <td><span class="style2"><a href="http://www.spicefly.com/">Spicefly.com</a></span></td>
+    <td>For Spicefly's version of this Page, tips for MusicIP and Spicefly SugarCube</td>
+  </tr>
+</table>
+
+<p class="style4">Version 2.0 - 4 January 2021<BR>
+  <BR>
+</p>
+</BODY>
+</HTML>
+
